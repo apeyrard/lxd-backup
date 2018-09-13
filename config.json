@@ -1,0 +1,22 @@
+{
+    "default": {},
+    "containers":
+    {
+        "factorio":
+        {
+            "before_script": "before_factorio.sh",
+            "after_script": "after_factorio.sh",
+            "frequency": ["daily", "weekly", "monthly", "yearly"]
+        },
+        "nextcloud":
+        {
+            "before_script": "before_nextcloud.sh",
+            "after_script": "after_nextcloud.sh",
+            "frequency": ["daily", "monthly", "yearly"]
+        },
+        "nginx":
+        {
+            "frequency": ["daily"]
+        }
+    }
+}
