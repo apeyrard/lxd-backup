@@ -1,16 +1,18 @@
-import pytest
-from pylxd import Client
-
 from lxd_backup import list_containers
 
-@pytest.fixture
-def container(name):
-    client = Client()
-    yield client.containers.create({'name': name, 'source': {'type': 'none'}}, wait=True)
-    client.containers.get(name).delete()
+from fixtures import given_container
+
 
 def test_no_container():
     assert [] == list_containers()
 
-def test_one_container():
+
+def test_one_container(given_container):
+    given_container("test-container")
     assert ["test-container"] == list_containers()
+
+def test_several_containers(given_container):
+    given_container("test-container-1")
+    given_container("test-container-2")
+    assert "test-container-1" in list_containers()
+    assert "test-container-2" in list_containers()
