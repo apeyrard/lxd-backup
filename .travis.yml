@@ -1,11 +1,19 @@
+sudo: required
+dist: trusty
 language: python
 python:
   - "3.5"
   - "3.6"
+before_install:
+  - sudo apt-get -y install snapd
+  - sudo snap install lxd
+  - sudo sh -c 'echo PATH=/snap/bin:$PATH >> /etc/environment'
+  - while [ ! -S /var/snap/lxd/common/lxd/unix.socket ]; do echo "Waiting for LXD socket...";sleep 0.2;done
+  - sudo lxd init --auto
+  - sudo usermod -a -G lxd $USER
 install:
-  - pip install tox-travis
   - pip install codecov
 script:
-  - tox
+  - newgrp lxd && pytest
 after_success:
   - codecov
