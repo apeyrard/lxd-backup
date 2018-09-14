@@ -1,12 +1,11 @@
-sudo: required
-dist: trusty
 language: python
 python:
-  - 3.5
-before_install:
-  - sudo apt-get -qq update
-  - sudo apt-get -t trusty-backports -y install lxd
-  - sudo lxd init --auto --storage-backend=dir || true
+  - "3.5"
+  - "3.6"
+install:
   - pip install tox-travis
+  - pip install codecov
 script:
-  - sudo tox
+  - tox
+after_success:
+  - codecov
