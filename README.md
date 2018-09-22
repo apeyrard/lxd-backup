@@ -1,14 +1,14 @@
 # lxd-backup
 Tools for automating backup of lxd containers
 
-[ ] Automatically publish image for every container
+[ ] Automatically publish images for containers
 
-[ ] allow choosing frequency of publication
+[ ] allow choosing frequency
 
-[ ] allow rolling relase of images
+[ ] export images to storage
 
-[ ] allow rsyncing images after publication
+[ ] export images to nextcloud
 
-[ ] delete images after rsync
+[ ] allow specification of lifetime and delete obsolete images from storage
 
 [ ] allow custom commands to be run in container before and after backup
