@@ -46,6 +46,7 @@ setup(
     install_requires=[
         # eg: 'aspectlib==1.1.1', 'six>=1.7',
         'pylxd>=2.2.7',
+        'arrow>=0.12.1',
     ],
     extras_require={
         # eg:
