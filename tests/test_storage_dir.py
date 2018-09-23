@@ -5,12 +5,6 @@ from lxd_backup.backup import backup_container
 from fixtures import given_container, given_stopped_container, client
 
 
-#def test_export_unkown_container(client, tmpdir):
-#    export_dir = tmpdir.join('images')
-#    publish_container("unknown", export_dir=export_dir)
-#
-#    assert not client.images.exists("2018-09-22_a-unknown", alias=True)
-
 def test_export_one_container_then_image_deleted(given_stopped_container, tmpdir, client):
     container_name = given_stopped_container
     export_dir = tmpdir.join('images')

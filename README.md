@@ -7,6 +7,10 @@ Tools for automating backup of lxd containers
 
 [ ] export images to nextcloud
 
+[ ] export images to ftp
+
+[ ] export images to s3
+
 [ ] use config file to parameterize options per container
 
 [ ] daemonize

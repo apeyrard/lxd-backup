@@ -3,11 +3,12 @@
 import os
 import logging
 import shutil
+from arrow import Arrow
 
-from arrow import utcnow
 from pylxd.exceptions import NotFound
 
 from .containers import Container
+from .frequencies import Frequency
 
 logger = logging.getLogger(__name__)
 
@@ -30,6 +31,29 @@ def backup_container(name, config=None):
             shutil.copyfileobj(in_file, out_file)
         image.delete()
 
+def month_and_day():
+    return Arrow.utcnow().format('MM-DD')
 
 def today():
-    return utcnow().format('YYYY-MM-DD')
+    return Arrow.utcnow().format('YYYY-MM-DD')
+
+def day():
+    return int(Arrow.utcnow().format('DD'))
+
+def weekday():
+    return Arrow.utcnow().weekday()
+
+def should_backup(frequency, target=None):
+    if frequency == Frequency.DAILY:
+        return True
+    elif frequency == Frequency.WEEKLY:
+        if target is None:
+            target = 0
+        return weekday() == target
+    elif frequency == Frequency.MONTHLY:
+        if target is None:
+            target = 1
+        return day() == target
+    elif frequency == Frequency.BIANUALLY:
+        return True
+

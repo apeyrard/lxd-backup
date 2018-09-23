@@ -20,7 +20,7 @@ def test_when_nominal_then_container_is_running_after_backup(given_running_conta
     client.images.get_by_alias('_'.join([date, container_name])).delete()
     assert client.containers.get(container_name).status == 'Running'
 
-def test_when_container_stopped_then_container_stopped_after_backup(given_stopped_container, client, mocker):
+def test_when_container_stopped_then_container_stopped_after_backup(given_stopped_container, client):
     container_name = given_stopped_container
     date = utcnow().format('YYYY-MM-DD')
 
