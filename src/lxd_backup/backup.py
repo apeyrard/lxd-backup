@@ -2,6 +2,7 @@
 
 import os
 import logging
+import shutil
 
 from arrow import utcnow
 from pylxd.exceptions import NotFound
@@ -10,7 +11,7 @@ from .containers import Container
 
 logger = logging.getLogger(__name__)
 
-def backup_container(name):
+def backup_container(name, config=None):
     try:
         container = Container(name)
     except NotFound:
@@ -18,7 +19,16 @@ def backup_container(name):
         return
 
     image = container.publish()
-    image.add_alias('_'.join([today(), name]), '')
+    image_name = '_'.join([today(), name])
+    image.add_alias(image_name, '')
+
+    if config:
+        path = config['dir'].join(image_name)
+        os.makedirs(config['dir'], exist_ok=True)
+        in_file = image.export()
+        with open(path, 'wb') as out_file:
+            shutil.copyfileobj(in_file, out_file)
+        image.delete()
 
 
 def today():

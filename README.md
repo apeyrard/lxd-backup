@@ -3,7 +3,7 @@ Tools for automating backup of lxd containers
 
 [x] publish images for containers
 
-[ ] export images to storage
+[x] export images to storage
 
 [ ] export images to nextcloud
 
