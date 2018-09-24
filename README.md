@@ -15,9 +15,11 @@ Tools for automating backup of lxd containers
 
 [ ] daemonize
 
-[ ] allow choosing frequency
+[x] allow choosing frequency
 
-[ ] allow specification of lifetime and delete obsolete images from storage
+[ ] allow specification of lifetime
+
+[ ] delete obsolete images from storage
 
 [ ] allow custom commands to be run in container before and after backup
 

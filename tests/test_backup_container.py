@@ -52,5 +52,3 @@ def test_when_nominal_then_image_alias_contains_date(given_stopped_container, cl
 
     client.images.get_by_alias('_'.join([date, container_name])).delete()
     assert result
-
-
