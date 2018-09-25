@@ -52,3 +52,6 @@ def test_when_bianually_and_october_26_and_target_is_april_26_then_should_backup
     mocker.patch('lxd_backup.frequencies.month', return_value=10)
     mocker.patch('lxd_backup.frequencies.day', return_value=26)
     assert should_backup(Frequency.BIANUALLY, target={'day': 26, 'month': 4})
+
+def test_when_unknown_frequency_then_should_not_backup(mocker):
+    assert not should_backup(42)

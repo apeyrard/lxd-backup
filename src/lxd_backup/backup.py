@@ -3,11 +3,11 @@
 import os
 import logging
 import shutil
-from arrow import Arrow
 
 from pylxd.exceptions import NotFound
 
 from .containers import Container
+from .time import today
 
 logger = logging.getLogger(__name__)
 
@@ -29,6 +29,3 @@ def backup_container(name, config=None):
         with open(path, 'wb') as out_file:
             shutil.copyfileobj(in_file, out_file)
         image.delete()
-
-def today():
-    return Arrow.utcnow().format('YYYY-MM-DD')
