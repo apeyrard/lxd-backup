@@ -35,4 +35,3 @@ class Container():
         if restart:
             self.start()
         return image
-            

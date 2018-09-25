@@ -11,6 +11,7 @@ from .time import today
 
 logger = logging.getLogger(__name__)
 
+
 def backup_container(name, config=None):
     try:
         container = Container(name)

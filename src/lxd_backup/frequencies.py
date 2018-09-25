@@ -3,6 +3,7 @@ from .time import (weekday,
                    day,
                    month)
 
+
 def should_backup(frequency, target=None):
     if frequency == Frequency.DAILY:
         return True
@@ -20,6 +21,7 @@ def should_backup(frequency, target=None):
         return month() % 6 == target['month'] and day() == target['day']
     else:
         return False
+
 
 class Frequency(Enum):
     DAILY = 0
