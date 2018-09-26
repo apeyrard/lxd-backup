@@ -1,4 +1,5 @@
 from arrow import Arrow
+from collections import defaultdict
 
 
 def today():
@@ -18,4 +19,8 @@ def month():
 
 
 def get_date_from_lifetime(lifetime):
-    return Arrow.utcnow().shift(days=lifetime['days']).format('YYYY-MM-DD')
+    lifetime = defaultdict(lambda: 0, lifetime)
+    return Arrow.utcnow().shift(days=lifetime['days'],
+                                weeks=lifetime['weeks'],
+                                months=lifetime['months'],
+                                years=lifetime['years']).format('YYYY-MM-DD')

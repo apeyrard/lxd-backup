@@ -65,3 +65,18 @@ def test_when_given_0_days_then_lifetime_is_current_date(mocker):
     date = arrow.get('1999-05-28')
     mocker.patch('lxd_backup.time.Arrow.utcnow', return_value=date)
     assert get_date_from_lifetime({'days': 0}) == '1999-05-28'
+
+def test_when_given_1_week_then_lifetime_is_next_week(mocker):
+    date = arrow.get('2020-04-02')
+    mocker.patch('lxd_backup.time.Arrow.utcnow', return_value=date)
+    assert get_date_from_lifetime({'weeks': 1}) == '2020-04-09'
+
+def test_when_given_5_months_then_lifetime_is_5_months_later(mocker):
+    date = arrow.get('1992-10-26')
+    mocker.patch('lxd_backup.time.Arrow.utcnow', return_value=date)
+    assert get_date_from_lifetime({'months': 5}) == '1993-03-26'
+
+def test_when_given_9_years_then_lifetime_is_9_years_later(mocker):
+    date = arrow.get('2000-10-26')
+    mocker.patch('lxd_backup.time.Arrow.utcnow', return_value=date)
+    assert get_date_from_lifetime({'years': 9}) == '2009-10-26'
