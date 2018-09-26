@@ -13,7 +13,7 @@ Tools for automating backup of lxd containers
 
 [x] allow choosing frequency
 
-[ ] allow specification of lifetime
+[x] allow specification of lifetime
 
 [ ] delete obsolete images from storage
 

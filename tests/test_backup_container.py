@@ -1,6 +1,6 @@
 import os
 
-from arrow import utcnow
+from arrow import (utcnow, get)
 
 from lxd_backup.backup import backup_container
 from fixtures import given_container, given_running_container, given_stopped_container, client
@@ -51,4 +51,22 @@ def test_when_nominal_then_image_alias_contains_date(given_stopped_container, cl
     result = client.images.exists('_'.join([date, container_name]), alias=True)
 
     client.images.get_by_alias('_'.join([date, container_name])).delete()
+    assert result
+
+
+def test_when_lifetime_givent_then_image_alias_contains_lifetime(given_stopped_container, client, mocker):
+    container_name = given_stopped_container
+    date = '2017-12-14'
+    mocker.patch('lxd_backup.backup.today', return_value=date)
+    mocker.patch('lxd_backup.time.Arrow.utcnow', return_value=get(date))
+
+    config = {'lifetime': {'days': 295}}
+    last_valid_date = '2018-10-05'
+    expected_image = '_'.join([date, 'until', last_valid_date, container_name])
+
+    backup_container(container_name, config)
+   
+    result = client.images.exists(expected_image, alias=True)
+
+    client.images.get_by_alias(expected_image).delete()
     assert result
