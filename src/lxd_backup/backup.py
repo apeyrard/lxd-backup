@@ -3,6 +3,7 @@
 import os
 import logging
 import shutil
+import subprocess
 
 from pylxd.exceptions import NotFound
 
@@ -18,14 +19,14 @@ def backup_container(name, config=None):
     except NotFound:
         logger.warning(f'Cannot backup, container not found: {name}')
         return
+    
+    execute_before_script(config)
 
     image = container.publish()
 
-    if config and 'lifetime' in config:
-        last_valid_date = get_date_from_lifetime(config['lifetime'])
-        image_name = '_'.join([today(), 'until', last_valid_date, name])
-    else:
-        image_name = '_'.join([today(), name])
+    execute_after_script(config)
+
+    image_name = get_image_name(name, config)
 
     image.add_alias(image_name, '')
 
@@ -36,3 +37,20 @@ def backup_container(name, config=None):
         with open(path, 'wb') as out_file:
             shutil.copyfileobj(in_file, out_file)
         image.delete()
+
+
+def execute_before_script(config):
+    if config and 'before_script' in config:
+        subprocess.call([config['before_script']])
+
+
+def execute_after_script(config):
+    if config and 'after_script' in config:
+        subprocess.call([config['after_script']])
+
+
+def get_image_name(name, config):
+    if config and 'lifetime' in config:
+        last_valid_date = get_date_from_lifetime(config['lifetime'])
+        return '_'.join([today(), 'until', last_valid_date, name])
+    return '_'.join([today(), name])
