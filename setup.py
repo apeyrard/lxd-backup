@@ -47,6 +47,7 @@ setup(
         # eg: 'aspectlib==1.1.1', 'six>=1.7',
         'pylxd>=2.2.7',
         'arrow>=0.12.1',
+        'boto>=1.0.0',
     ],
     extras_require={
         # eg:

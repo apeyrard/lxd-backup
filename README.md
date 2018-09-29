@@ -15,9 +15,9 @@ Tools for automating backup of lxd containers
 
 [x] allow specification of lifetime
 
-[ ] delete obsolete images from storage
+[x] delete obsolete images from storage
 
-[ ] allow custom commands to be run in container before and after backup
+[x] allow custom commands to be run in container before and after backup
 
 [ ] export images to aws glacier (warning, deletion before 90 days are billed for 90 days. include that in doc, maybe disallow glacier for lower than monthly lifetimes)
 

@@ -4,6 +4,7 @@ import os
 import logging
 import shutil
 import subprocess
+import arrow
 
 from pylxd.exceptions import NotFound
 
@@ -38,6 +39,13 @@ def backup_container(name, config=None):
             shutil.copyfileobj(in_file, out_file)
         image.delete()
 
+
+def cleanup(config):
+    for f in os.listdir(config['dir']):
+        if 'until' in f:
+            limit = f.split('_')[2]
+            if arrow.get(limit).format('YYYY-MM-DD') < today():
+                os.remove(config['dir'].join(f))
 
 def execute_before_script(config):
     if config and 'before_script' in config:
