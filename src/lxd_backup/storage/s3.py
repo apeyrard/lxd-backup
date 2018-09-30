@@ -10,7 +10,10 @@ class S3():
         self._bucket_name = bucket
         self._s3 = boto3.resource('s3')
         self._bucket = self._s3.Bucket(bucket)
-        self._bucket.create()
+        try:
+            self._bucket.create()
+        except:
+            pass
 
     def export(self, image):
         in_file = image.export()

@@ -45,9 +45,9 @@ setup(
     ],
     install_requires=[
         # eg: 'aspectlib==1.1.1', 'six>=1.7',
-        'pylxd>=2.2.7',
-        'arrow>=0.12.1',
-        'boto3>=1.9.14',
+        'pylxd>=2.2.6',
+        'arrow>=0.10.0',
+        'boto3>=1.4.2',
     ],
     extras_require={
         # eg:
