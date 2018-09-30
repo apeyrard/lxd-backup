@@ -1,10 +1,7 @@
 #!/usr/bin/env python3
 
-import os
 import logging
-import shutil
 import subprocess
-import arrow
 
 from pylxd.exceptions import NotFound
 
@@ -31,21 +28,10 @@ def backup_container(name, config=None):
 
     image.add_alias(image_name, '')
 
-    if config and 'dir' in config:
-        path = config['dir'].join(image_name)
-        os.makedirs(config['dir'], exist_ok=True)
-        in_file = image.export()
-        with open(path, 'wb') as out_file:
-            shutil.copyfileobj(in_file, out_file)
-        image.delete()
+    return image
 
 
-def cleanup(config):
-    for f in os.listdir(config['dir']):
-        if 'until' in f:
-            limit = f.split('_')[2]
-            if arrow.get(limit).format('YYYY-MM-DD') < today():
-                os.remove(config['dir'].join(f))
+
 
 def execute_before_script(config):
     if config and 'before_script' in config:
