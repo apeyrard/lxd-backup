@@ -5,9 +5,9 @@ Tools for automating backup of lxd containers
 
 [x] export images to storage
 
-[ ] export images to aws s3
+[x] export images to aws s3
 
-[ ] use config file to parameterize options per container
+[x] use config file to parameterize options per container
 
 [ ] daemonize
 
