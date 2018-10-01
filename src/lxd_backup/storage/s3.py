@@ -17,7 +17,7 @@ class S3():
 
     def export(self, image):
         in_file = image.export()
-        self._bucket.put_object(Key=image.aliases[0]['name'], Body=in_file)
+        self._bucket.upload_fileobj(in_file, image.aliases[0]['name'])
         image.delete()
 
     def exists(self, file):
