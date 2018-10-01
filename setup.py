@@ -56,7 +56,7 @@ setup(
     },
     entry_points={
         'console_scripts': [
-            'lxd_backup = lxd_backup.cli:main',
+            'lxd-backup = lxd_backup.cli:main',
         ],
     },
 )

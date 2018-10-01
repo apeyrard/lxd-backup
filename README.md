@@ -9,7 +9,9 @@ Tools for automating backup of lxd containers
 
 [x] use config file to parameterize options per container
 
-[ ] daemonize
+[ ] create systemd oneshot service
+
+[ ] export only once when several backups
 
 [x] allow choosing frequency
 
@@ -26,3 +28,5 @@ Tools for automating backup of lxd containers
 [ ] export images to ftp
 
 [ ] readthedocs
+
+[ ] email on failure
