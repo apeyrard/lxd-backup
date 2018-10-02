@@ -10,6 +10,12 @@
                 "lifetime": {"days": 0},
                 "storage": "s3",
                 "path": "apeyrard.com-test-bucket"
+            },
+            {
+                "frequency": "MONTHLY",
+                "lifetime": {"months": 1},
+                "storage": "s3",
+                "path": "apeyrard.com-test-bucket"
             }
         ]
     }

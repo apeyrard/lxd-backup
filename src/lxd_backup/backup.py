@@ -31,8 +31,6 @@ def backup_container(name, config=None):
     return image
 
 
-
-
 def execute_before_script(config):
     if config and 'before_script' in config:
         logger.info(f"executing script: {config['before_script']}")

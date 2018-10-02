@@ -1,0 +1,23 @@
+{
+    "test-container":
+    {
+        "before_script": "./tests/test_before_script.sh",
+        "after_script": "./tests/test_after_script.sh",
+        "rules":
+        [
+            {
+                "frequency": "DAILY",
+                "lifetime": {"days": 0},
+                "storage": "s3",
+                "path": "apeyrard.com-test-bucket"
+            },
+            {
+                "frequency": "MONTHLY",
+                "lifetime": {"months": 1},
+		"when": 32,
+                "storage": "s3",
+                "path": "apeyrard.com-test-bucket"
+            }
+        ]
+    }
+}
