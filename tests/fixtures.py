@@ -15,9 +15,9 @@ def given_container(client, scope='session'):
     name = 'test-container'
     source = {'type': 'image',
               'mode': 'pull',
-              'server': 'https://cloud-images.ubuntu.com/daily',
+              'server': 'https://us.images.linuxcontainers.org',
               'protocol' : 'simplestreams',
-              'alias': 'lts'
+              'alias': 'alpine/3.4/amd64'
               }
     container = client.containers.create({'name': name,
                                           'source': source},
