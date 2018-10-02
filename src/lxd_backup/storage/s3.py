@@ -1,8 +1,13 @@
 import boto3
 import botocore
 import arrow
+import logging
 
 from ..time import today
+
+
+logger = logging.getLogger(__name__)
+
 
 class S3():
 
@@ -16,6 +21,7 @@ class S3():
             pass
 
     def export(self, image):
+        logger.info(f"exporting image: {image.aliases[0]['name']}")
         in_file = image.export()
         self._bucket.upload_fileobj(in_file, image.aliases[0]['name'])
         image.delete()
@@ -43,4 +49,5 @@ class S3():
             if 'until' in file.key:
                 limit = file.key.split('_')[2]
                 if arrow.get(limit).format('YYYY-MM-DD') < today():
+                    logger.info(f"deleting obsolete image: {file.key}")
                     self._bucket.delete_objects(Delete={'Objects': [{'Key': file.key}]})

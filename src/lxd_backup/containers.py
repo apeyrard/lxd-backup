@@ -29,6 +29,7 @@ class Container():
         return self.__container.status == 'Running'
 
     def publish(self):
+        logger.info(f'publishing container: {self._name}')
         restart = self.is_running()
         self.stop()
         image = self.__container.publish(wait=True)

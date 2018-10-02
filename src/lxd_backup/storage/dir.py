@@ -1,8 +1,12 @@
 import os
 import shutil
 import arrow
+import logging
 
 from ..time import today
+
+
+logger = logging.getLogger(__name__)
 
 
 class Dir():
@@ -12,6 +16,7 @@ class Dir():
         os.makedirs(path, exist_ok=True)
 
     def export(self, image):
+        logger.info(f"exporting image: {image.aliases[0]['name']}")
         out_file_path = os.path.join(self.__path, image.aliases[0]['name'])
         in_file = image.export()
         with open(out_file_path, 'wb') as out_file:
@@ -23,6 +28,7 @@ class Dir():
             if 'until' in f:
                 limit = f.split('_')[2]
                 if arrow.get(limit).format('YYYY-MM-DD') < today():
+                    logger.info(f"deleting obsolete image: {f}")
                     os.remove(os.path.join(self.__path, f))
 
     def exists(self, file):

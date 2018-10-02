@@ -35,11 +35,13 @@ def backup_container(name, config=None):
 
 def execute_before_script(config):
     if config and 'before_script' in config:
+        logger.info(f"executing script: {config['before_script']}")
         subprocess.call([config['before_script']])
 
 
 def execute_after_script(config):
     if config and 'after_script' in config:
+        logger.info(f"executing script: {config['after_script']}")
         subprocess.call([config['after_script']])
 
 
