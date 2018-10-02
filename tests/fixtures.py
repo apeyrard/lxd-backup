@@ -1,6 +1,10 @@
 import pytest
+import os
 
 from pylxd import Client
+
+from lxd_backup.storage.dir import Dir
+from lxd_backup.storage.s3 import S3
 
 @pytest.fixture
 def client():
@@ -39,3 +43,14 @@ def given_stopped_container(client, given_container):
     if container.status == 'Running':
         client.containers.get(given_container).stop(wait=True)
     return given_container
+
+
+@pytest.fixture(params=[Dir, S3])
+def storage(request, tmpdir):
+    if request.param == Dir:
+        instance = request.param(tmpdir.join('images'))
+    elif request.param == S3:
+        instance = request.param('apeyrard.com-test-bucket')
+
+    yield instance
+    instance.delete_all()

@@ -2,8 +2,10 @@ import boto3
 import botocore
 import arrow
 import logging
+import io
 
 from ..time import today
+from . import get_md5
 
 
 logger = logging.getLogger(__name__)
@@ -23,7 +25,9 @@ class S3():
     def export(self, image):
         logger.info(f"exporting image: {image.aliases[0]['name']}")
         in_file = image.export()
+        md5sum = get_md5(in_file)
         self._bucket.upload_fileobj(in_file, image.aliases[0]['name'])
+        self._bucket.upload_fileobj(io.BytesIO(md5sum.encode()), ''.join([image.aliases[0]['name'], '.md5']))
         image.delete()
 
     def exists(self, file):

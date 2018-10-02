@@ -4,6 +4,7 @@ import arrow
 import logging
 
 from ..time import today
+from . import get_md5
 
 
 logger = logging.getLogger(__name__)
@@ -19,8 +20,11 @@ class Dir():
         logger.info(f"exporting image: {image.aliases[0]['name']}")
         out_file_path = os.path.join(self.__path, image.aliases[0]['name'])
         in_file = image.export()
+        md5sum = get_md5(in_file)
         with open(out_file_path, 'wb') as out_file:
             shutil.copyfileobj(in_file, out_file)
+        with open(''.join([out_file_path, '.md5']), 'w') as out_file_hash:
+            out_file_hash.write(md5sum)
         image.delete()
 
     def cleanup(self):
