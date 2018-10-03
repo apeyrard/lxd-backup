@@ -48,7 +48,6 @@ setup(
         'pylxd>=2.2.6',
         'arrow>=0.10.0',
         'boto3>=1.4.2',
-        'systemd-python>=234',
     ],
     extras_require={
         # eg:
