@@ -46,8 +46,11 @@ def parse_config(config):
     
 
 def main():
-    args = parse_args(sys.argv[1:])
-    parse_config(args.config)
+    try:
+        args = parse_args(sys.argv[1:])
+        parse_config(args.config)
+    except exception as e:
+        logger.exception(e)
 
 if __name__ == '__main__':
     main()
