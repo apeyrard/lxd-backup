@@ -13,8 +13,9 @@ script:
       while [ ! -S /var/snap/lxd/common/lxd/unix.socket ]; do echo "Waiting for LXD socket...";sleep 0.2;done;
       sudo lxd init --auto;
       sudo usermod -a -G lxd travis;
-      sudo pip install tox systemd-python;
+      sudo pip install -r test_requirements.txt;
+      sudo pip install -e .;
    fi
  - if [ ! -z ${IMAGE} ]; then
-      sudo su travis -c 'tox';
+      sudo su travis -c 'pytest';
    fi
