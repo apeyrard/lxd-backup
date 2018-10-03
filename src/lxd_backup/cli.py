@@ -40,9 +40,11 @@ def parse_config(config):
                         backup_config['after_script'] = after_script
                     image = backup_container(container, backup_config)
                     if rule['storage'] == 'dir':
-                        Dir(rule['path']).export(image)
+                        storage = Dir(rule['path'])
                     elif rule['storage'] == 's3':
-                        S3(rule['path']).export(image)
+                        storage = S3(rule['path'])
+                    storage.export(image)
+                    storage.cleanup()
     
 
 def main():

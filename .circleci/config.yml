@@ -16,7 +16,7 @@ jobs:
 
         - checkout
 
-        - run: pip install tox && tox
+        - run: pip install tox && tox -r
 
 workflows:
 
