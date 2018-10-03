@@ -7,15 +7,16 @@ script:
  - if [ ! -z ${IMAGE} ]; then
       sudo add-apt-repository -y ppa:deadsnakes/ppa;
       sudo apt-get -qq update;
-      sudo apt-get -y install libsystemd-daemon-dev libsystemd-id128-dev libsystemd-login-dev libsystemd-journal-dev gcc python3-dev python-dev pkg-config python3.6 snapd;
+      sudo apt-get -y install libsystemd-{journal,daemon,login,id128}-dev python3.6 python3-pip snapd;
       sudo snap install lxd;
       sudo sh -c 'echo PATH=/snap/bin:$PATH >> /etc/environment';
       while [ ! -S /var/snap/lxd/common/lxd/unix.socket ]; do echo "Waiting for LXD socket...";sleep 0.2;done;
       sudo lxd init --auto;
       sudo usermod -a -G lxd travis;
-      sudo pip install -r test_requirements.txt;
-      sudo pip install -e .;
+      sudo pip-3.6 install --upgrade setuptools;
+      sudo pip-3.6 install -r test_requirements.txt;
+      sudo pip-3.6 install -e .;
    fi
  - if [ ! -z ${IMAGE} ]; then
-      sudo su travis -c 'pytest';
+      sudo su travis -c 'python3.6 -m pytest';
    fi
