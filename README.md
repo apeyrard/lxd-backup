@@ -1,6 +1,9 @@
 # lxd-backup
 Tools for automating backup of lxd containers
 
+[![Build Status](https://travis-ci.org/apeyrard/lxd-backup.svg?branch=master)](https://travis-ci.org/apeyrard/lxd-backup)
+
+
 [x] publish images for containers
 
 [x] export images to storage
