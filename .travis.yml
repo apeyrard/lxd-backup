@@ -5,17 +5,16 @@ env:
  -"3.6"
 script:
  - if true; then
-      sudo add-apt-repository -y ppa:deadsnakes/ppa;
       sudo apt-get -qq update;
-      sudo apt-get -y install libsystemd-{journal,daemon,login,id128}-dev python3.6 python3-pip snapd;
+      sudo apt-get -y install libsystemd-{journal,daemon,login,id128}-dev snapd;
       sudo snap install lxd;
       sudo sh -c 'echo PATH=/snap/bin:$PATH >> /etc/environment';
       while [ ! -S /var/snap/lxd/common/lxd/unix.socket ]; do echo "Waiting for LXD socket...";sleep 0.2;done;
       sudo lxd init --auto;
       sudo usermod -a -G lxd travis;
-      sudo pip-3.6 install --upgrade setuptools;
-      sudo pip-3.6 install -r test_requirements.txt;
-      sudo pip-3.6 install -e .;
+      pip install --upgrade setuptools;
+      pip install -r test_requirements.txt;
+      pip install -e .;
    fi
  - if true; then
       sudo su travis -c 'python3.6 -m pytest';
