@@ -1,9 +1,10 @@
 import os
 import pytest
 import io
+import sys
 from arrow import Arrow
 
-from lxd_backup.cli import parse_config
+from lxd_backup.cli import main
 from lxd_backup.storage.dir import Dir
 from lxd_backup.storage.s3 import S3
 from fixtures import given_container, given_stopped_container, client, storage
@@ -12,8 +13,8 @@ from fixtures import given_container, given_stopped_container, client, storage
 def test_when_use_config_file_to_export(mocker, given_stopped_container):
     container_name = given_stopped_container
 
-    
-    parse_config('tests/test_files/dir/nominal.json')
+    sys.argv = ['', '-c', 'tests/test_files/dir/nominal.json'] 
+    main()
 
 
     expected_file = '_'.join([Arrow.utcnow().format('YYYY-MM-DD'), 'until', Arrow.utcnow().shift(days=1).format('YYYY-MM-DD'), container_name])
@@ -44,7 +45,8 @@ def test_when_several_backups_only_backup_longest_lifetime(mocker, given_stopped
     expected_hash_file = ''.join([expected_file, '.md5'])
     unexpected_file = '_'.join([Arrow.utcnow().format('YYYY-MM-DD'), 'until', Arrow.utcnow().shift(days=1).format('YYYY-MM-DD'), container_name])
 
-    parse_config('tests/test_files/s3/several_backups_same_day.json')
+    sys.argv = ['', '-c', 'tests/test_files/s3/several_backups_same_day.json']
+    main()
 
     with open('tmp/before_script_was_run') as f:
         before_script_result = f.readline() == 'True\n'
@@ -71,7 +73,8 @@ def test_when_several_backups_only_backup_longest_lifetime_oldest_is_deactivated
     unexpected_file = '_'.join([Arrow.utcnow().format('YYYY-MM-DD'), 'until', Arrow.utcnow().shift(months=1).format('YYYY-MM-DD'), container_name])
     expected_file = '_'.join([Arrow.utcnow().format('YYYY-MM-DD'), 'until', Arrow.utcnow().shift(days=1).format('YYYY-MM-DD'), container_name])
 
-    parse_config('tests/test_files/s3/several_backups_same_day_oldest_is_deactivated.json')
+    sys.argv = ['', '-c', 'tests/test_files/s3/several_backups_same_day_oldest_is_deactivated.json']
+    main()
 
     with open('tmp/before_script_was_run') as f:
         before_script_result = f.readline() == 'True\n'
@@ -97,7 +100,8 @@ def test_when_several_backups_only_backup_longest_lifetime_oldest_is_daily(mocke
     unexpected_file = '_'.join([Arrow.utcnow().format('YYYY-MM-DD'), 'until', Arrow.utcnow().shift(months=1).format('YYYY-MM-DD'), container_name])
     expected_file = '_'.join([Arrow.utcnow().format('YYYY-MM-DD'), 'until', Arrow.utcnow().shift(days=365).format('YYYY-MM-DD'), container_name])
 
-    parse_config('tests/test_files/s3/several_backups_same_day_oldest_is_daily.json')
+    sys.argv = ['', '-c', 'tests/test_files/s3/several_backups_same_day_oldest_is_daily.json']
+    main()
 
     with open('tmp/before_script_was_run') as f:
         before_script_result = f.readline() == 'True\n'
@@ -117,8 +121,9 @@ def test_when_several_backups_only_backup_longest_lifetime_oldest_is_daily(mocke
 
 def test_when_no_scripts_no_exceptions(mocker, given_stopped_container):
     container_name = given_stopped_container
-    
-    parse_config('tests/test_files/dir/nominal_without_scripts.json')
+   
+    sys.argv = ['', '-c', 'tests/test_files/dir/nominal_without_scripts.json']
+    main()
 
     expected_file = '_'.join([Arrow.utcnow().format('YYYY-MM-DD'), 'until', Arrow.utcnow().shift(days=1).format('YYYY-MM-DD'), container_name])
     expected_hash_file = ''.join([expected_file, '.md5'])

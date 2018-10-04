@@ -14,9 +14,9 @@ Tools for automating backup of lxd containers
 
 [x] use config file to parameterize options per container
 
-[ ] create systemd oneshot service
+[x] create systemd oneshot service
 
-[ ] export only once when several backups
+[x] export only once when several backups
 
 [x] allow choosing frequency
 
@@ -25,10 +25,6 @@ Tools for automating backup of lxd containers
 [x] delete obsolete images from storage
 
 [x] allow custom commands to be run in container before and after backup
-
-[ ] export images to aws glacier (warning, deletion before 90 days are billed for 90 days. include that in doc, maybe disallow glacier for lower than monthly lifetimes)
-
-[ ] export images to nextcloud
 
 [ ] export images to ftp
 

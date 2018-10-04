@@ -16,10 +16,7 @@ class S3():
         self._bucket_name = bucket
         self._s3 = boto3.resource('s3')
         self._bucket = self._s3.Bucket(bucket)
-        try:
-            self._bucket.create()
-        except:
-            pass
+        self._bucket.create()
 
     def export(self, image):
         logger.info(f"exporting image: {image.aliases[0]['name']}")

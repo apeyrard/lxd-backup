@@ -2,7 +2,6 @@ import pytest
 from arrow import utcnow
 
 from lxd_backup.backup import backup_container
-from lxd_backup.storage.dir import Dir
 from lxd_backup.storage.s3 import S3
 from fixtures import given_container, given_stopped_container, client, storage
 
@@ -66,4 +65,9 @@ def test_when_export_image_then_export_hash(mocker, storage, given_stopped_conta
     expected_hash_file = ''.join([expected_file, '.md5'])
     assert storage.exists(expected_file)
     assert storage.exists(expected_hash_file)
+
+
+def test_when_s3_bucket_already_exists_do_not_fail():
+    storage = S3('apeyrard.com-test-bucket')
+    storage = S3('apeyrard.com-test-bucket')
 

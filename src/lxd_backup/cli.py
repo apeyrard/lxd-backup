@@ -48,8 +48,8 @@ def longest_lived_rule(config):
     return longest_lived_rule
 
 
-def main():
-    args = parse_args(sys.argv[1:])
+def main(argv=None):
+    args = parse_args(argv)
     parse_config(args.config)
 
 
@@ -63,6 +63,6 @@ def get_storage_backend(rule):
 
 if __name__ == '__main__':
     try:
-        main()
+        main(sys.argv[1:])
     except exception as e:
         logger.exception(e)
