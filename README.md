@@ -2,6 +2,9 @@
 Tools for automating backup of lxd containers
 
 [![Build Status](https://travis-ci.org/apeyrard/lxd-backup.svg?branch=master)](https://travis-ci.org/apeyrard/lxd-backup)
+[![Maintainability](https://api.codeclimate.com/v1/badges/8ad1a716dc5cd2f6dc9a/maintainability)](https://codeclimate.com/github/apeyrard/lxd-backup/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/8ad1a716dc5cd2f6dc9a/test_coverage)](https://codeclimate.com/github/apeyrard/lxd-backup/test_coverage)
+[![Coverage Status](https://coveralls.io/repos/github/apeyrard/lxd-backup/badge.svg?branch=master)](https://coveralls.io/github/apeyrard/lxd-backup?branch=master)
 
 
 [x] publish images for containers
