@@ -15,5 +15,5 @@ script:
       pip install --upgrade setuptools;
       pip install -r test_requirements.txt;
       pip install -e .;
-      sudo su travis -c "~/virtualenv/python3.6/bin/activate && python -m pytest -vsx"
+      sudo su travis -c "~/virtualenv/python3.6/bin/activate && python -m pytest -vsx";
    fi
