@@ -24,21 +24,15 @@ def parse_config(config):
         container_config = config[container]
 
         rule = longest_lived_rule(container_config)
-        before_script = container_config.get("before_script")
-        after_script = container_config.get("after_script")
 
-        when = rule.get('when')
-        if should_backup(Frequency[rule['frequency']], when):
-            backup_config = {'lifetime': rule['lifetime']}
-            backup_config['before_script'] = before_script
-            backup_config['after_script'] = after_script
-            image = backup_container(container, backup_config)
-            if rule['storage'] == 'dir':
-                storage = Dir(rule['path'])
-            elif rule['storage'] == 's3':
-                storage = S3(rule['path'])
-            storage.export(image)
-            storage.cleanup()
+        backup_config = {'lifetime': rule['lifetime'],
+                         'before_script': container_config.get("before_script"),
+                         'after_script': container_config.get("after_script")}
+
+        image = backup_container(container, backup_config)
+        storage = get_storage_backend(rule)
+        storage.export(image)
+        storage.cleanup()
 
 
 def longest_lived_rule(config):
@@ -58,6 +52,14 @@ def main():
         parse_config(args.config)
     except exception as e:
         logger.exception(e)
+
+
+def get_storage_backend(rule):
+    if rule['storage'] == 'dir':
+        storage = Dir(rule['path'])
+    elif rule['storage'] == 's3':
+        storage = S3(rule['path'])
+    return storage
 
 
 if __name__ == '__main__':
