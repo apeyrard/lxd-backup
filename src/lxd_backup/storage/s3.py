@@ -1,11 +1,10 @@
 import boto3
 import botocore
-import arrow
 import logging
 import io
 
 from ..time import today
-from . import get_md5
+from . import get_md5, is_file_obsolete
 
 
 logger = logging.getLogger(__name__)
@@ -50,8 +49,9 @@ class S3():
 
     def cleanup(self):
         for file in self._bucket.objects.all():
-            if 'until' in file.key:
-                limit = file.key.split('_')[2]
-                if arrow.get(limit).format('YYYY-MM-DD') < today():
-                    logger.info(f"deleting obsolete image: {file.key}")
-                    self._bucket.delete_objects(Delete={'Objects': [{'Key': file.key}]})
+            if is_file_obsolete(file.key):
+                logger.info(f"deleting obsolete image: {file.key}")
+                self.delete_file(file.key)
+
+    def delete_file(self, filename):
+        self._bucket.delete_objects(Delete={'Objects': [{'Key': filename}]})

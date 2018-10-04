@@ -1,4 +1,8 @@
 import hashlib
+import arrow
+
+from ..time import today
+
 
 def get_md5(in_file):
     BLOCKSIZE = 65536
@@ -9,3 +13,10 @@ def get_md5(in_file):
         buf = in_file.read(BLOCKSIZE)
     in_file.seek(0)
     return md5sum.hexdigest()
+
+
+def is_file_obsolete(filename):
+    if 'until' in filename:
+        limit = filename.split('_')[2]
+        return arrow.get(limit).format('YYYY-MM-DD') < today()
+

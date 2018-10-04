@@ -1,10 +1,9 @@
 import os
 import shutil
-import arrow
 import logging
 
 from ..time import today
-from . import get_md5
+from . import get_md5, is_file_obsolete
 
 
 logger = logging.getLogger(__name__)
@@ -29,11 +28,9 @@ class Dir():
 
     def cleanup(self):
         for f in os.listdir(self.__path):
-            if 'until' in f:
-                limit = f.split('_')[2]
-                if arrow.get(limit).format('YYYY-MM-DD') < today():
-                    logger.info(f"deleting obsolete image: {f}")
-                    os.remove(os.path.join(self.__path, f))
+            if is_file_obsolete(f):
+                logger.info(f"deleting obsolete image: {f}")
+                os.remove(os.path.join(self.__path, f))
 
     def exists(self, file):
         return os.path.isfile(os.path.join(self.__path, file))

@@ -35,8 +35,7 @@ def test_when_obsolete_backup_then_delete_it(mocker, storage):
 
 
 def test_when_not_obsolete_backup_then_dont_delete_it(mocker, storage):
-    mocker.patch('lxd_backup.storage.dir.today', return_value='1995-12-25')
-    mocker.patch('lxd_backup.storage.s3.today', return_value='1995-12-25')
+    mocker.patch('lxd_backup.storage.today', return_value='1995-12-25')
 
     filename = '1992-10-26_until_1998-01-15_test-container'
     storage.create_file(filename)
@@ -47,8 +46,7 @@ def test_when_not_obsolete_backup_then_dont_delete_it(mocker, storage):
 
 
 def test_when_obsolete_day_is_today_then_dont_delete_it(mocker, storage):
-    mocker.patch('lxd_backup.storage.dir.today', return_value='1995-12-25')
-    mocker.patch('lxd_backup.storage.s3.today', return_value='1995-12-25')
+    mocker.patch('lxd_backup.storage.today', return_value='1995-12-25')
 
     filename = '1992-10-26_until_1995-12-25_test-container'
     storage.create_file(filename)
