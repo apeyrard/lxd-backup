@@ -26,7 +26,8 @@ class S3():
         in_file = image.export()
         md5sum = get_md5(in_file)
         self._bucket.upload_fileobj(in_file, image.aliases[0]['name'])
-        self._bucket.upload_fileobj(io.BytesIO(md5sum.encode()), ''.join([image.aliases[0]['name'], '.md5']))
+        self._bucket.upload_fileobj(io.BytesIO(md5sum.encode()), ''.join([
+                                    image.aliases[0]['name'], '.md5']))
         image.delete()
 
     def exists(self, file):

@@ -8,6 +8,7 @@ from lxd_backup.storage.dir import Dir
 from lxd_backup.storage.s3 import S3
 from lxd_backup.time import get_date_from_lifetime
 
+
 def parse_args(args):
     parser = argparse.ArgumentParser()
     parser.add_argument('-c', '--config')
@@ -18,7 +19,7 @@ def parse_config(config):
 
     with open(config, 'rb') as f:
         config = json.load(f)
-   
+
     for container in config:
         container_config = config[container]
 
@@ -49,7 +50,7 @@ def longest_lived_rule(config):
             longest_lifetime = last_valid_date
             longest_lived_rule = rule
     return longest_lived_rule
-    
+
 
 def main():
     try:
@@ -57,6 +58,7 @@ def main():
         parse_config(args.config)
     except exception as e:
         logger.exception(e)
+
 
 if __name__ == '__main__':
     main()

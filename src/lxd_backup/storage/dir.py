@@ -39,5 +39,4 @@ class Dir():
         shutil.rmtree(self.__path)
 
     def create_file(self, path):
-        open(os.path.join(self.__path, path), 'w+').close() 
-
+        open(os.path.join(self.__path, path), 'w+').close()

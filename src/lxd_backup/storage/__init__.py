@@ -18,4 +18,3 @@ def is_file_obsolete(filename):
     if 'until' in filename:
         limit = filename.split('_')[2]
         return limit <= today()
-

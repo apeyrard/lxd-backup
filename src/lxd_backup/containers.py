@@ -19,7 +19,7 @@ class Container():
                 raise e
 
     def stop(self):
-        try:     
+        try:
             self.__container.stop(wait=True)
         except LXDAPIException as e:
             if e.response.json()['metadata']['err'] != 'The container is already stopped':

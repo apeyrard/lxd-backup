@@ -17,7 +17,7 @@ def backup_container(name, config=None):
     except NotFound:
         logger.warning(f'Cannot backup, container not found: {name}')
         return
-    
+
     execute_before_script(config)
 
     image = container.publish()

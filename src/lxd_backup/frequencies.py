@@ -17,7 +17,7 @@ def get_default_target(frequency):
         Frequency.WEEKLY: 0,
         Frequency.MONTHLY: 1,
         Frequency.BIANUALLY: {'month': 1, 'day': 1}
-        }
+    }
     return default_target[frequency]
 
 
@@ -38,5 +38,3 @@ def should_backup(frequency, target=None):
         return month() % 6 == target['month'] and day() == target['day']
     else:
         return False
-
-
