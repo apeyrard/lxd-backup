@@ -3,6 +3,9 @@ dist: trusty
 language: python
 python:
  - "3.6"
+before_script:
+ - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+ - chmod +x ./cc-test-reporter
 script:
  - if true; then
       sudo apt-get -qq update;
@@ -14,6 +17,11 @@ script:
       sudo usermod -a -G lxd travis;
       pip install --upgrade setuptools;
       pip install -r test_requirements.txt;
+      pip install coverage;
       pip install -e .;
       sudo su travis -c "source ~/virtualenv/python3.6/bin/activate && python -m pytest -vsx";
    fi
+after_script:
+ - coverage xml
+ - if [[ "$TRAVIS_PULL_REQUEST" == "false" ]; then ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT; fi
+ 
