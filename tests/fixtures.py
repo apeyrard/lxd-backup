@@ -45,10 +45,10 @@ def given_stopped_container(client, given_container):
     return given_container
 
 
-@pytest.fixture(params=[Dir, S3])
-def storage(request, tmpdir):
+@pytest.fixture(params=[Dir, S3], scope='session')
+def storage(request, tmpdir_factory):
     if request.param == Dir:
-        instance = request.param(tmpdir.join('images'))
+        instance = request.param(tmpdir_factory.mktemp('images'))
     elif request.param == S3:
         instance = request.param('apeyrard.com-test-bucket')
 
