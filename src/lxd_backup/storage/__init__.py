@@ -1,5 +1,4 @@
 import hashlib
-import arrow
 
 from ..time import today
 
@@ -18,5 +17,5 @@ def get_md5(in_file):
 def is_file_obsolete(filename):
     if 'until' in filename:
         limit = filename.split('_')[2]
-        return arrow.get(limit).format('YYYY-MM-DD') < today()
+        return limit <= today()
 

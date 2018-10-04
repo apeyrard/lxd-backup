@@ -45,7 +45,7 @@ def test_when_not_obsolete_backup_then_dont_delete_it(mocker, storage):
     assert storage.exists(filename)
 
 
-def test_when_obsolete_day_is_today_then_dont_delete_it(mocker, storage):
+def test_when_obsolete_day_is_today_then_delete_it(mocker, storage):
     mocker.patch('lxd_backup.storage.today', return_value='1995-12-25')
 
     filename = '1992-10-26_until_1995-12-25_test-container'
@@ -53,7 +53,7 @@ def test_when_obsolete_day_is_today_then_dont_delete_it(mocker, storage):
 
     storage.cleanup()
 
-    assert storage.exists(filename)
+    assert not storage.exists(filename)
 
 
 def test_when_export_image_then_export_hash(mocker, storage, given_stopped_container):
