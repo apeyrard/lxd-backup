@@ -15,7 +15,5 @@ script:
       pip install --upgrade setuptools;
       pip install -r test_requirements.txt;
       pip install -e .;
-   fi
- - if true; then
-      sudo su travis -c 'python -m pytest';
+      python -m pytest;
    fi
