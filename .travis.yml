@@ -2,9 +2,9 @@ sudo: required
 dist: trusty
 language: python
 env:
- - IMAGE="images:ubuntu/bionic"
+ -"3.6"
 script:
- - if [ ! -z ${IMAGE} ]; then
+ - if true; then
       sudo add-apt-repository -y ppa:deadsnakes/ppa;
       sudo apt-get -qq update;
       sudo apt-get -y install libsystemd-{journal,daemon,login,id128}-dev python3.6 python3-pip snapd;
@@ -17,6 +17,6 @@ script:
       sudo pip-3.6 install -r test_requirements.txt;
       sudo pip-3.6 install -e .;
    fi
- - if [ ! -z ${IMAGE} ]; then
+ - if true; then
       sudo su travis -c 'python3.6 -m pytest';
    fi
