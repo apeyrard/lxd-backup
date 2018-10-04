@@ -23,5 +23,5 @@ script:
    fi
 after_script:
  - coverage xml
- - if [[ "$TRAVIS_PULL_REQUEST" == "false" ]; then ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT; fi
+ - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
  
