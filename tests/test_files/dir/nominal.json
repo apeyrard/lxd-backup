@@ -7,7 +7,7 @@
         [
             {
                 "frequency": "DAILY",
-                "lifetime": {"days": 0},
+                "lifetime": {"days": 1},
                 "storage": "dir",
                 "path": "/tmp/images"
             }

@@ -16,7 +16,7 @@ def test_when_use_config_file_to_export(mocker, given_stopped_container):
     parse_config('tests/test_files/dir/nominal.json')
 
 
-    expected_file = '_'.join([Arrow.utcnow().format('YYYY-MM-DD'), 'until', Arrow.utcnow().format('YYYY-MM-DD'), container_name])
+    expected_file = '_'.join([Arrow.utcnow().format('YYYY-MM-DD'), 'until', Arrow.utcnow().shift(days=1).format('YYYY-MM-DD'), container_name])
     expected_hash_file = ''.join([expected_file, '.md5'])
 
     with open('tmp/before_script_was_run') as f:
@@ -42,7 +42,7 @@ def test_when_several_backups_only_backup_longest_lifetime(mocker, given_stopped
 
     expected_file = '_'.join([Arrow.utcnow().format('YYYY-MM-DD'), 'until', Arrow.utcnow().shift(months=1).format('YYYY-MM-DD'), container_name])
     expected_hash_file = ''.join([expected_file, '.md5'])
-    unexpected_file = '_'.join([Arrow.utcnow().format('YYYY-MM-DD'), 'until', Arrow.utcnow().format('YYYY-MM-DD'), container_name])
+    unexpected_file = '_'.join([Arrow.utcnow().format('YYYY-MM-DD'), 'until', Arrow.utcnow().shift(days=1).format('YYYY-MM-DD'), container_name])
 
     parse_config('tests/test_files/s3/several_backups_same_day.json')
 
@@ -69,7 +69,7 @@ def test_when_several_backups_only_backup_longest_lifetime_oldest_is_deactivated
     s3 = S3('apeyrard.com-test-bucket')
 
     unexpected_file = '_'.join([Arrow.utcnow().format('YYYY-MM-DD'), 'until', Arrow.utcnow().shift(months=1).format('YYYY-MM-DD'), container_name])
-    expected_file = '_'.join([Arrow.utcnow().format('YYYY-MM-DD'), 'until', Arrow.utcnow().format('YYYY-MM-DD'), container_name])
+    expected_file = '_'.join([Arrow.utcnow().format('YYYY-MM-DD'), 'until', Arrow.utcnow().shift(days=1).format('YYYY-MM-DD'), container_name])
 
     parse_config('tests/test_files/s3/several_backups_same_day_oldest_is_deactivated.json')
 

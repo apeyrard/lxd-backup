@@ -43,15 +43,13 @@ def parse_config(config):
 
 
 def longest_lived_rule(config):
-    longest_lifetime = None
-    longest_lived_rule = None
+    longest_lifetime = "0000-00-00"
     for rule in config["rules"]:
         when = rule.get('when')
-        if should_backup(Frequency[rule['frequency']], when):
-            last_valid_date = get_date_from_lifetime(rule['lifetime'])
-            if longest_lifetime is None or last_valid_date > longest_lifetime:
-                longest_lifetime = last_valid_date
-                longest_lived_rule = rule
+        last_valid_date = get_date_from_lifetime(rule['lifetime'])
+        if should_backup(Frequency[rule['frequency']], when) and last_valid_date > longest_lifetime:
+            longest_lifetime = last_valid_date
+            longest_lived_rule = rule
     return longest_lived_rule
     
 

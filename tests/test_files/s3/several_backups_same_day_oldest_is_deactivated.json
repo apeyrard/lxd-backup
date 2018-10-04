@@ -7,7 +7,7 @@
         [
             {
                 "frequency": "DAILY",
-                "lifetime": {"days": 0},
+                "lifetime": {"days": 1},
                 "storage": "s3",
                 "path": "apeyrard.com-test-bucket"
             },
