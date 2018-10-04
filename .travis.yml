@@ -17,5 +17,5 @@ script:
       pip install -e .;
    fi
  - if true; then
-      sudo su travis -c 'python3.6 -m pytest';
+      sudo su travis -c 'python -m pytest';
    fi
