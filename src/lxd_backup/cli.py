@@ -1,6 +1,7 @@
 import sys
 import argparse
 import json
+import logging
 
 from lxd_backup.frequencies import should_backup, Frequency
 from lxd_backup.backup import backup_container
@@ -8,6 +9,7 @@ from lxd_backup.storage.dir import Dir
 from lxd_backup.storage.s3 import S3
 from lxd_backup.time import get_date_from_lifetime
 
+logger = logging.getLogger(__name__)
 
 def parse_args(args):
     parser = argparse.ArgumentParser()
@@ -47,11 +49,8 @@ def longest_lived_rule(config):
 
 
 def main():
-    try:
-        args = parse_args(sys.argv[1:])
-        parse_config(args.config)
-    except exception as e:
-        logger.exception(e)
+    args = parse_args(sys.argv[1:])
+    parse_config(args.config)
 
 
 def get_storage_backend(rule):
@@ -63,4 +62,7 @@ def get_storage_backend(rule):
 
 
 if __name__ == '__main__':
-    main()
+    try:
+        main()
+    except exception as e:
+        logger.exception(e)
