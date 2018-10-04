@@ -2,7 +2,7 @@ sudo: required
 dist: trusty
 language: python
 python:
- -"3.6"
+ - "3.6"
 script:
  - if true; then
       sudo apt-get -qq update;
