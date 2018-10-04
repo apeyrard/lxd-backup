@@ -1,7 +1,7 @@
 sudo: required
 dist: trusty
 language: python
-env:
+python:
  -"3.6"
 script:
  - if true; then
