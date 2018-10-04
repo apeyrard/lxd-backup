@@ -20,10 +20,12 @@ script:
       pip install pytest-cov;
       pip install -r test_requirements.txt;
       pip install coverage;
+      pip install codecov;
       pip install -e .;
       sudo su travis -c "source ~/virtualenv/python3.6/bin/activate && python -m pytest --cov=src -vsx";
    fi
 after_script:
+ - codecov
  - coverage xml
  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
  
