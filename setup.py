@@ -1,11 +1,7 @@
 #!/usr/bin/env python3
 
-#import io
-#import re
 from glob import glob
 from os.path import basename
-#from os.path import dirname
-#from os.path import join
 from os.path import splitext
 
 from setuptools import find_packages
@@ -16,10 +12,6 @@ setup(
     version='0.1.0',
     license='MIT License',
     description='Tool to automatically backup lxd containers',
-    #long_description='%s\n%s' % (
-    #    re.compile('^.. start-badges.*^.. end-badges', re.M | re.S).sub('', read('README.rst')),
-    #    re.sub(':[a-z]+:`~?(.*?)`', r'``\1``', read('CHANGELOG.rst'))
-    #),
     author='Alex Peyrard',
     author_email='alex.peyrard@gmail.com',
     url='https://github.com/apeyrard/lxd-backup',
@@ -41,18 +33,13 @@ setup(
         'Topic :: Utilities',
     ],
     keywords=[
-        # eg: 'keyword1', 'keyword2', 'keyword3',
     ],
     install_requires=[
-        # eg: 'aspectlib==1.1.1', 'six>=1.7',
         'pylxd>=2.2.6',
         'arrow>=0.10.0',
         'boto3>=1.4.2',
     ],
     extras_require={
-        # eg:
-        #   'rst': ['docutils>=0.11'],
-        #   ':python_version=="2.6"': ['argparse'],
     },
     entry_points={
         'console_scripts': [

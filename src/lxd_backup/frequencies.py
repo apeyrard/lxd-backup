@@ -18,23 +18,26 @@ def get_default_target(frequency):
         Frequency.MONTHLY: 1,
         Frequency.BIANUALLY: {'month': 1, 'day': 1}
     }
-    return default_target[frequency]
+    return default_target.get(frequency)
 
 
 def should_backup(frequency, target=None):
+    result = False
+
     if target is None:
-        try:
-            target = get_default_target(frequency)
-        except KeyError:
-            return False
+        target = get_default_target(frequency)
 
     if frequency == Frequency.DAILY:
-        return True
+        result = True
     elif frequency == Frequency.WEEKLY:
-        return weekday() == target
+        result = weekday() == target
     elif frequency == Frequency.MONTHLY:
-        return day() == target
+        result = day() == target
     elif frequency == Frequency.BIANUALLY:
-        return month() % 6 == target['month'] and day() == target['day']
-    else:
-        return False
+        result = is_day_biannual_target(target)
+
+    return result
+
+
+def is_day_biannual_target(target):
+    return month() % 6 == target['month'] % 6 and day() == target['day']
