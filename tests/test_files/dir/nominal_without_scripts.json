@@ -1,0 +1,14 @@
+{
+    "test-container":
+    {
+        "rules":
+        [
+            {
+                "frequency": "DAILY",
+                "lifetime": {"days": 1},
+                "storage": "dir",
+                "path": "/tmp/images"
+            }
+        ]
+    }
+}

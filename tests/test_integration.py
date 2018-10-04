@@ -113,3 +113,20 @@ def test_when_several_backups_only_backup_longest_lifetime_oldest_is_daily(mocke
     assert before_script_result
     assert after_script_result
     assert file_does_not_exist
+
+
+def test_when_no_scripts_no_exceptions(mocker, given_stopped_container):
+    container_name = given_stopped_container
+    
+    parse_config('tests/test_files/dir/nominal_without_scripts.json')
+
+    expected_file = '_'.join([Arrow.utcnow().format('YYYY-MM-DD'), 'until', Arrow.utcnow().shift(days=1).format('YYYY-MM-DD'), container_name])
+    expected_hash_file = ''.join([expected_file, '.md5'])
+
+    file_exists = os.path.isfile(os.path.join('/tmp/images', expected_file))
+    hash_exists = os.path.isfile(os.path.join('/tmp/images', expected_hash_file))
+    
+    Dir('/tmp/images').delete_all()
+
+    assert file_exists
+    assert hash_exists

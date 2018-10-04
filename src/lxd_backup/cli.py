@@ -29,10 +29,8 @@ def parse_config(config):
         when = rule.get('when')
         if should_backup(Frequency[rule['frequency']], when):
             backup_config = {'lifetime': rule['lifetime']}
-            if before_script is not None:
-                backup_config['before_script'] = before_script
-            if after_script is not None:
-                backup_config['after_script'] = after_script
+            backup_config['before_script'] = before_script
+            backup_config['after_script'] = after_script
             image = backup_container(container, backup_config)
             if rule['storage'] == 'dir':
                 storage = Dir(rule['path'])
