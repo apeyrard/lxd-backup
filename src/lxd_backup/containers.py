@@ -15,15 +15,15 @@ class Container():
         try:
             self.__container.start(wait=True)
         except LXDAPIException as e:
-            if e.response.json()['metadata']['err'] != 'The container is already running':
-                raise e
+            if e.response.json()['metadata']['err'] == 'The container is already running':
+                pass
 
     def stop(self):
         try:
             self.__container.stop(wait=True)
         except LXDAPIException as e:
-            if e.response.json()['metadata']['err'] != 'The container is already stopped':
-                raise e
+            if e.response.json()['metadata']['err'] == 'The container is already stopped':
+                pass
 
     def is_running(self):
         return self.__container.status == 'Running'
